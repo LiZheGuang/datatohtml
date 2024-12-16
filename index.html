@@ -1,0 +1,46 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/exceljs/4.4.0/exceljs.js"></script>
+
+    <script>
+      window.onload = function () {
+        console.log(ExcelJS);
+      };
+      const workbook = new ExcelJS.Workbook();
+
+      function fileHander(e) {
+        const fileName = e.files[0].name;
+        // const file = e.files.pop()
+        workbook.xlsx.load(e.files[0]).then((data) => {
+          console.log(data);
+          var worksheet = workbook.getWorksheet("9月");
+          worksheet._rows.map((node,index)=>{
+            // console.log(node.values)
+            let name  = node.values[2]
+            if(index > 0 && name){
+                console.log(name)
+
+            }
+          })
+          console.log();
+          // console.log(worksheet.getRow(3))
+          // console.log(worksheet)
+        });
+        console.log("fileHander", e.files);
+      }
+    </script>
+  </head>
+  <body>
+    <input
+      id="zzcodeFile"
+      type="file"
+      placeholder="file"
+      onchange="fileHander(this)"
+    />
+  </body>
+</html>
